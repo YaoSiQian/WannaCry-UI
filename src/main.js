@@ -18,6 +18,10 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 // Clock of the Sections
+const date_timer1 = new Date("2024/8/10 19:30:00");
+const date_timer2 = new Date("2025/1/14 00:00:00");
+
+
 function getCurrentDateTime() {
   var currentDate = new Date();
 
@@ -27,8 +31,8 @@ function getCurrentDateTime() {
   return date + ' ' + time;
 }
 
-document.getElementById('datetime').innerHTML = getCurrentDateTime();
-document.getElementById('datetime2').innerHTML = getCurrentDateTime();
+document.getElementById('datetime').innerHTML = date_timer1.toLocaleString('zh');
+document.getElementById('datetime2').innerHTML = date_timer2.toLocaleString('zh');
 
 
 // Create Timer 
@@ -87,9 +91,35 @@ function startTimerForDisplay2(durationInSeconds) {
       }
   }, 1000);
 }
+function startTimerForDisplay(targetDate, displayElementID) {
+  const timerDisplay = document.getElementById(displayElementID);
+  const now = new Date().getTime();
+  const gap = targetDate - now;
 
-// Start the timer with 2 days (2 days * 24 hours * 60 minutes * 60 seconds) for timerDisplay
-startTimerForDisplay1(2 * 24 * 60 * 60);
+  if (gap <= 0) {
+    timerDisplay.innerHTML = "00:00:00:00";
+    return;
+  }
 
-// Start the timer with 1 day (1 day * 24 hours * 60 minutes * 60 seconds) for timerDisplay2
-startTimerForDisplay2(4 * 24 * 60 * 60);
+  const timer = gap / 1000;
+  const days = Math.floor(timer / (3600 * 24));
+  const hours = Math.floor((timer % (3600 * 24)) / 3600);
+  const minutes = Math.floor((timer % 3600) / 60);
+  const seconds = Math.floor(timer % 60);
+
+  const formattedTime = `${padZero(days)}:${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+
+  timerDisplay.innerHTML = formattedTime;
+
+  setTimeout(() => {
+    startTimerForDisplay(targetDate, displayElementID);
+  }, 1000);
+}
+
+function padZero(num) {
+  return num.toString().padStart(2, '0');
+}
+
+
+startTimerForDisplay(date_timer1, 'timer');
+startTimerForDisplay(date_timer2, 'timer2');

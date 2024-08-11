@@ -3157,7 +3157,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "wannacry"
+name = "wannakoi"
 version = "0.0.0"
 dependencies = [
  "serde",

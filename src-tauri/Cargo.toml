@@ -1,7 +1,7 @@
 [package]
-name = "wannacry"
+name = "wannakoi"
 version = "0.0.0"
-description = "A Tauri App"
+description = "WannaKoi"
 authors = ["you"]
 edition = "2021"
 
